@@ -25,6 +25,7 @@
     private void HandleClickCount2()
     {
         _count2 = _count2 + 1;
+        shouldRender = true;
     }
 
     private void HandleClickCount3()
@@ -49,14 +50,12 @@
     protected override bool ShouldRender()
     {
         Console.WriteLine("ComponentA - ShouldRender::{0} - {1}", shouldRender, DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss"));
-        // if (shouldRender)
-        // {
-        //     shouldRender = false;
-        //     return true;
-        // }
-        // else
-        //     return false;
-
-        return base.ShouldRender();
+        if (shouldRender)
+        {
+            shouldRender = false;
+            return true;
+        }
+        else
+            return false;
     }
 }
