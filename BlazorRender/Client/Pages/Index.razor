@@ -1,0 +1,54 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+<button @onclick="HandleClickCount1" style="cursor:pointer;background-color:lightblue;padding:5px;color:black">Count1</button>
+<p>Count1: @_count1</p>
+<button @onclick="HandleClickCount2" style="cursor:pointer;background-color:lightblue;padding:5px;color:black">count2</button>
+<p>Count2: @_count2</p>
+<button @onclick="HandleClickCount3" style="cursor:pointer;background-color:lightblue;padding:5px;color:black">count3</button>
+<p>Count3: @_count3</p>
+<p>----------------------------------</p>
+<ComponentA @bind-Count="_count1" Count2="_count2" Count3="_count3"></ComponentA>
+@* <ComponentA></ComponentA> *@
+@* <ComponentB></ComponentB> *@
+@code {
+    private int _count1;
+    private int _count2;
+    private int _count3;
+
+    private void HandleClickCount1(MouseEventArgs e)
+    {
+        _count1 = _count1 + 1;
+        shouldRender = true;
+    }
+    private void HandleClickCount2()
+    {
+        _count2 = _count2 + 1;
+    }
+    private void HandleClickCount3()
+    {
+        _count3 = _count3 + 1;
+    }
+
+    private bool shouldRender;
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine("Index - OnParametersSet::{0} - count1:{1}  - count2:{2}  - count3:{3} - {4}", shouldRender, _count1, _count2, _count3, DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss"));
+        shouldRender = true;
+
+    }
+    protected override bool ShouldRender()
+    {
+        Console.WriteLine("Index - ShouldRender::{0} - {1}", shouldRender, DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss"));
+        if (shouldRender)
+        {
+            shouldRender = false;
+            return true;
+        }
+        else
+            return false;
+
+             // return base.ShouldRender();
+    }
+}

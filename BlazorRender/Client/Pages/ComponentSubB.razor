@@ -1,0 +1,25 @@
+﻿<h3>ComponentSubA 1: @Count</h3>
+<h3>ComponentSubA 2: @Count2</h3>
+<h3>ComponentSubA 3: @Count3</h3>
+
+@code {
+    [Parameter] public int Count { get; set; }
+    [Parameter] public int Count2 { get; set; }
+    [Parameter] public int Count3 { get; set; }
+
+    private bool shouldRender;
+
+    protected override void OnParametersSet() => shouldRender = true;
+
+    protected override bool ShouldRender()
+    {
+        Console.WriteLine("ComponentSubA::{0} - {1}", shouldRender, DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss"));
+        if (shouldRender)
+        {
+            shouldRender = false;
+            return true;
+        }
+        else
+            return false;
+    }
+}
